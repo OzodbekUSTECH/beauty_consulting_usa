@@ -3,6 +3,7 @@ import logging
 from pydantic import Field
 from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 
 class Settings(BaseSettings):
@@ -15,14 +16,14 @@ class Settings(BaseSettings):
 
     OPENAI_API_KEY: str
 
-    SQLITE_DB_PATH: str = "data/db.sqlite3"
+    # Указываем путь к базе данных sqlite относительно корня проекта
+    SQLITE_DB_PATH: str = os.path.join("data", "db.sqlite3")
 
     STRING_SESSION: Optional[str] = None
 
     ECHO: bool = False
 
     CHAT_IDS: list[str] = []
-
 
     ASSISTANT_ID: str
 
@@ -41,17 +42,16 @@ class Settings(BaseSettings):
 
     DOCS_USERNAME: str
     DOCS_PASSWORD: str
-    
-    
+
     # --- tg bot ---
     BOT_TOKEN: str
     ALLOWED_USER_IDS: list[str] = Field(default_factory=list)
 
-
     @property
     def database_url(self):
-        return f"sqlite+aiosqlite:///{self.SQLITE_DB_PATH}"
-
+        # абсолютный путь для корректного подключения (для docker и локально)
+        db_full_path = os.path.abspath(self.SQLITE_DB_PATH)
+        return f"sqlite+aiosqlite:///{db_full_path}"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
