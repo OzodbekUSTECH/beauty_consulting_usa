@@ -6,3 +6,7 @@ venv
 *.session
 db.sqlite3
 .venv
+
+# Ignore all contents of data except .gikeep
+data/*
+!data/.gikeep
