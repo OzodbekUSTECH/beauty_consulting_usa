@@ -11,13 +11,12 @@ services:
     volumes:
       - data:/code/data
 
-  # redis:
-  #   image: redis:8
-  #   restart: unless-stopped
-  #   ports:
-  #     - "${REDIS_PORT}:6379"
-  #   volumes:
-  #     - redis_data:/data
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
 
 volumes:
   data:
+  redis_data:
