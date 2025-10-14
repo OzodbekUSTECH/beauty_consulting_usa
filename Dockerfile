@@ -15,16 +15,15 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Копирование кода проекта
-COPY . .
+COPY . /code/
 
-# Создание пользователя
-RUN useradd -u 1000 -m user \
- && chown -R user:user /code
+# Установка прав на скрипт запуска
+RUN chmod +x ./entrypoint.sh
 
-# Переход под пользователя
+# Создание пользователя и переход на него
+RUN useradd -m user
+RUN chown -R user:user /code
 USER user
 
-# Убедиться, что скрипт имеет права на исполнение
-RUN chmod +x /code/entrypoint.sh
-
+# Запуск приложения
 ENTRYPOINT ["./entrypoint.sh"]
