@@ -9,7 +9,7 @@ services:
     ports:
       - "${PORT}:8000"
     volumes:
-      - ./data/db.sqlite3:/code/db.sqlite3
+      - data:/code/data
 
   # redis:
   #   image: redis:8
@@ -19,5 +19,5 @@ services:
   #   volumes:
   #     - redis_data:/data
 
-# volumes section is not needed for bind-mounting a file in the main directory
-
+volumes:
+  data:
