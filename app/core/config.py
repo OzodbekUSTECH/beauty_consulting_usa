@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     OPENAI_API_KEY: str
 
-    SQLITE_DB_PATH: str = "db.sqlite3"
+    SQLITE_DB_PATH: str = "data/db.sqlite3"
 
     STRING_SESSION: Optional[str] = None
 
