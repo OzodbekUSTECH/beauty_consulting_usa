@@ -5,4 +5,4 @@ venv
 .idea
 *.session
 db.sqlite3
-docker-compose.yml
+.venv

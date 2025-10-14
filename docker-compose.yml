@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  # assistant_app:
+  #   build: .
+  #   env_file:
+  #     - .env
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./db.sqlite3:/db.sqlite3
+
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    ports:
+      - "6378:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
