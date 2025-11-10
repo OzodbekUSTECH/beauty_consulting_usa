@@ -1,13 +1,28 @@
-version: '3.8'
 services:
+  assistant_app:
+    build: .
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "${PORT}:8000"
+    volumes:
+      - data:/code/data
+    networks:
+      - shared-net
+
   redis:
     image: redis:8
-    container_name: redis_server
-    ports:
-      - "127.0.0.1:6379:6379"  # только доступ изнутри сервера
+    restart: unless-stopped
     volumes:
       - redis_data:/data
-    restart: unless-stopped
+    networks:
+      - redis-net
 
 volumes:
+  data:
   redis_data:
+
+networks:
+  redis-net:
+    external: true
