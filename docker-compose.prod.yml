@@ -9,7 +9,7 @@ services:
     volumes:
       - data:/code/data
     networks:
-      - shared-net
+      - redis-net
 
   redis:
     image: redis:8
